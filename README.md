@@ -1,61 +1,120 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Prueba Técnica Kuantaz
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API desarrollada en Laravel 12 como parte de una prueba técnica, priorizando buenas prácticas de arquitectura y eficiencia en el procesamiento de datos.
 
-## About Laravel
+## Decisiones técnicas
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   **Separación de responsabilidades:**  
+    Se implementaron servicios (`Services`) para consumir las APIs externas en lugar de realizar estas operaciones directamente en los controladores. Esto permite un código más limpio, desacoplado y fácil de testear o extender.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   **Procesamiento eficiente de beneficios:**  
+    Para asociar los beneficios con sus respectivos filtros y fichas, se obtienen ambos recursos y se transforman en arreglos asociativos donde los índices corresponden a los IDs (`id_programa` para filtros y `id` para fichas). De esta manera, al procesar cada beneficio, la búsqueda de su filtro o ficha asociada es inmediata (O(1)), optimizando el rendimiento y evitando búsquedas repetitivas en arreglos.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Requisitos
 
-## Learning Laravel
+-   PHP >= 8.2
+-   Composer
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Instalación
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. Clonar repositorio:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+    ```sh
+    git clone https://github.com/carlosbc14/prueba-tecnica-kuantaz.git
+    cd prueba-tecnica-kuantaz
+    ```
 
-## Laravel Sponsors
+2. Instalar dependencias de PHP:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```sh
+    composer install
+    ```
 
-### Premium Partners
+3. Copiar archivo de entorno:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+    ```sh
+    cp .env.example .env
+    ```
 
-## Contributing
+4. Generar clave de aplicación:
+    ```sh
+    php artisan key:generate
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Ejecución
 
-## Code of Conduct
+Iniciar servidor de desarrollo:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```sh
+php artisan serve
+```
 
-## Security Vulnerabilities
+La API estará disponible en `http://localhost:8000`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Endpoints principales
 
-## License
+### Obtener beneficios procesados
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   **GET** `/api/beneficios-procesados`
+
+    Devuelve los beneficios agrupados por año, con información de fichas asociadas.
+
+    **Respuesta de ejemplo:**
+
+    ```json
+    {
+        "code": 200,
+        "success": true,
+        "data": [
+            {
+                "anio": 2023,
+                "cantidad_total": 2,
+                "monto_total": 4500,
+                "beneficios": [
+                    {
+                        "id_programa": 101,
+                        "monto": 1500,
+                        "fecha_recepcion": "01/01/2023",
+                        "fecha": "2023-01-01",
+                        "ficha": {
+                            "id": 10,
+                            "nombre": "Ficha A",
+                            "id_programa": 101,
+                            "url": "ficha_a",
+                            "categoria": "Categoria A",
+                            "descripcion": "Descripción A"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+    ```
+
+### Documentación OpenAPI
+
+-   **GET** `/api/documentation`
+
+    Devuelve la documentación de la API generada automáticamente con [Swagger](https://swagger.io/).
+
+### Estado de la API
+
+-   **GET** `/api`
+
+    Devuelve información básica de la API (descripción y versión).
+
+## Pruebas
+
+Ejecutar tests con:
+
+```sh
+php artisan test
+```
+
+## Estructura principal
+
+-   [`app/Http/Controllers/BeneficioController.php`](app/Http/Controllers/BeneficioController.php): Controlador principal de la API.
+-   [`app/Services/BeneficioService.php`](app/Services/BeneficioService.php): Servicio para obtener los beneficios desde API externa.
+-   [`app/Services/FiltroService.php`](app/Services/FiltroService.php): Servicio para obtener filtros de los beneficios desde API externa.
+-   [`app/Services/FichaService.php`](app/Services/FichaService.php): Servicio para obtener ficha de los beneficios desde API externa.
+-   [`routes/api.php`](routes/api.php): Definición de rutas de la API.
