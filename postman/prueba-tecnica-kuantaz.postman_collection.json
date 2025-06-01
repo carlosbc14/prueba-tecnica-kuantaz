@@ -1,0 +1,69 @@
+{
+	"info": {
+		"_postman_id": "a393896c-2e3d-4a64-ade2-0c1b3161503f",
+		"name": "Prueba Técnica Kuantaz",
+		"description": "API para obtener beneficios agrupados por año con filtros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21539630"
+	},
+	"item": [
+		{
+			"name": "Obtener Beneficios Procesados",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{API_URL}}/api/beneficios-procesados",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"api",
+						"beneficios-procesados"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_URL",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}

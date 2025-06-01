@@ -111,6 +111,10 @@ Ejecutar tests con:
 php artisan test
 ```
 
+## Postman Collection
+
+Archivo para importar la colección en Postman para probar la API: [`postman/prueba-tecnica-kuantaz.postman_collection.json`](postman/prueba-tecnica-kuantaz.postman_collection.json)
+
 ## Estructura principal
 
 -   [`app/Http/Controllers/BeneficioController.php`](app/Http/Controllers/BeneficioController.php): Controlador principal de la API.
