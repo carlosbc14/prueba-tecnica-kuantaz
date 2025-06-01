@@ -15,6 +15,63 @@ class BeneficioController extends Controller
         protected FichaService $fichaService
     ) {}
 
+    /**
+     * @OA\Get(
+     *     path="/api/beneficios-procesados",
+     *     summary="Obtener lista de beneficios agrupados por año",
+     *     tags={"Beneficios"},
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de beneficios agrupados por año",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="code", type="integer", example=200),
+     *             @OA\Property(property="success", type="boolean", example=true),
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(
+     *                     type="object",
+     *                     @OA\Property(property="anio", type="integer", example=2024),
+     *                     @OA\Property(property="cantidad_total", type="integer", example=10),
+     *                     @OA\Property(property="monto_total", type="number", format="integer", example=15000),
+     *                     @OA\Property(
+     *                         property="beneficios",
+     *                         type="array",
+     *                         @OA\Items(
+     *                             type="object",
+     *                             @OA\Property(property="id_programa", type="integer", example=1),
+     *                             @OA\Property(property="monto", type="number", format="integer", example=1200),
+     *                             @OA\Property(property="fecha_recepcion", type="string", example="31/05/2024"),
+     *                             @OA\Property(property="fecha", type="string", format="date", example="2024-05-31"),
+     *                             @OA\Property(
+     *                                 property="ficha",
+     *                                 type="object",
+     *                                 @OA\Property(property="id", type="integer", example=10),
+     *                                 @OA\Property(property="nombre", type="string", example="Nombre de Ficha"),
+     *                                 @OA\Property(property="id_programa", type="integer", example=1),
+     *                                 @OA\Property(property="url", type="string", example="nombre-ficha"),
+     *                                 @OA\Property(property="categoria", type="string", example="Categoría de ficha"),
+     *                                 @OA\Property(property="descripcion", type="string", example="Descripción de ficha")
+     *                             )
+     *                         )
+     *                     )
+     *                 )
+     *             )
+     *         )
+     *     ),
+     *     @OA\Response(
+     *         response=500,
+     *         description="Error interno del servidor",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(property="code", type="integer", example=500),
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Error message")
+     *         )
+     *     )
+     * )
+     */
     public function index(): JsonResponse
     {
         try {

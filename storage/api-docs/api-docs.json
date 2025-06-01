@@ -1,0 +1,147 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Prueba Técnica Kuantaz",
+        "description": "API para la consulta de beneficios agrupados por año.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/beneficios-procesados": {
+            "get": {
+                "tags": [
+                    "Beneficios"
+                ],
+                "summary": "Obtener lista de beneficios agrupados por año",
+                "operationId": "fb8a57faa2335871f3abeb152fb9989a",
+                "responses": {
+                    "200": {
+                        "description": "Lista de beneficios agrupados por año",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "anio": {
+                                                        "type": "integer",
+                                                        "example": 2024
+                                                    },
+                                                    "cantidad_total": {
+                                                        "type": "integer",
+                                                        "example": 10
+                                                    },
+                                                    "monto_total": {
+                                                        "type": "number",
+                                                        "format": "integer",
+                                                        "example": 15000
+                                                    },
+                                                    "beneficios": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "properties": {
+                                                                "id_programa": {
+                                                                    "type": "integer",
+                                                                    "example": 1
+                                                                },
+                                                                "monto": {
+                                                                    "type": "number",
+                                                                    "format": "integer",
+                                                                    "example": 1200
+                                                                },
+                                                                "fecha_recepcion": {
+                                                                    "type": "string",
+                                                                    "example": "31/05/2024"
+                                                                },
+                                                                "fecha": {
+                                                                    "type": "string",
+                                                                    "format": "date",
+                                                                    "example": "2024-05-31"
+                                                                },
+                                                                "ficha": {
+                                                                    "properties": {
+                                                                        "id": {
+                                                                            "type": "integer",
+                                                                            "example": 10
+                                                                        },
+                                                                        "nombre": {
+                                                                            "type": "string",
+                                                                            "example": "Nombre de Ficha"
+                                                                        },
+                                                                        "id_programa": {
+                                                                            "type": "integer",
+                                                                            "example": 1
+                                                                        },
+                                                                        "url": {
+                                                                            "type": "string",
+                                                                            "example": "nombre-ficha"
+                                                                        },
+                                                                        "categoria": {
+                                                                            "type": "string",
+                                                                            "example": "Categoría de ficha"
+                                                                        },
+                                                                        "descripcion": {
+                                                                            "type": "string",
+                                                                            "example": "Descripción de ficha"
+                                                                        }
+                                                                    },
+                                                                    "type": "object"
+                                                                }
+                                                            },
+                                                            "type": "object"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error interno del servidor",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "code": {
+                                            "type": "integer",
+                                            "example": 500
+                                        },
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Error message"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Beneficios",
+            "description": "Operaciones relacionadas con los beneficios"
+        }
+    ]
+}
